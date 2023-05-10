@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: BankAccountParallelExecutionTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0 s <<< FAILURE! - in BankAccountParallelExecutionTest
+testDeposit2{BankAccount}  Time elapsed: 0 s  <<< FAILURE!
+java.lang.AssertionError: Use assertEquals(expected, actual, delta) to compare floating-point numbers
+	at BankAccountParallelExecutionTest.testDeposit2(BankAccountParallelExecutionTest.java:24)
+
+testDeposit1{BankAccount}  Time elapsed: 0 s  <<< FAILURE!
+java.lang.AssertionError: Use assertEquals(expected, actual, delta) to compare floating-point numbers
+	at BankAccountParallelExecutionTest.testDeposit1(BankAccountParallelExecutionTest.java:17)
+
+testDeposit3{BankAccount}  Time elapsed: 0 s  <<< FAILURE!
+java.lang.AssertionError: Use assertEquals(expected, actual, delta) to compare floating-point numbers
+	at BankAccountParallelExecutionTest.testDeposit3(BankAccountParallelExecutionTest.java:31)
+
