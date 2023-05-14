@@ -43,6 +43,8 @@
             <groupId>com.epam</groupId>
             <artifactId>calculator</artifactId>
             <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/Calculator-1.0.jar</systemPath>
         </dependency>
     </dependencies>
     <build>
