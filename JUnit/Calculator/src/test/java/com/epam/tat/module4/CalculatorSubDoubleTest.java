@@ -1,42 +1,29 @@
 package com.epam.tat.module4;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(CalculatorParameterResolver.class)
 @DisplayName("Tests for sub double method of Calculator.jar")
 @Execution(ExecutionMode.CONCURRENT)
 public class CalculatorSubDoubleTest {
-    private Calculator calculator;
 
-    @BeforeEach
-    public void setUp() {
-        calculator = new Calculator();
-    }
-
-    @Test
-    @DisplayName("Test subtraction of positive doubles")
-    public void testSubPositiveDoubles() {
-        double result = calculator.sub(5.5, 2.2);
-        assertEquals(3.3, result, 0.0001);
-    }
-
-    @Test
-    @DisplayName("Test subtraction of negative doubles")
-    public void testSubNegativeDoubles() {
-        double result = calculator.sub(-5.5, -2.2);
-        assertEquals(-3.3, result, 0.0001);
-    }
-
-    @Test
-    @DisplayName("Test subtraction of zero and positive double")
-    public void testSubZeroAndPositiveDouble() {
-        double result = calculator.sub(0.0, 5.8);
-        assertEquals(-5.8, result, 0.0001);
+    @ParameterizedTest(name = "Test subtraction of {0} and {1}")
+    @CsvSource({
+            "5.5, 2.2, 3.3",
+            "-5.5, -2.2, -3.3",
+            "0.0, 5.8, -5.8"
+    })
+    @DisplayName("Test subtraction with different doubles")
+    public void testSubDoubleValues(double a, double b, double expected, Calculator calculator) {
+        double result = calculator.sub(a, b);
+        assertEquals(expected, result, 0.0001);
     }
 
 }

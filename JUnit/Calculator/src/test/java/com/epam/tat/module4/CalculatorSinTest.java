@@ -1,29 +1,27 @@
 package com.epam.tat.module4;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(CalculatorParameterResolver.class)
 @DisplayName("Tests for sin method of Calculator.jar")
 @Execution(ExecutionMode.CONCURRENT)
 public class CalculatorSinTest {
-    private Calculator calculator;
 
-    @BeforeEach
-    public void setUp() {
-        calculator = new Calculator();
-    }
-
-    @Test
-    @DisplayName("Test sine of angle")
-    public void testSinAngle() {
-        double angle = Math.PI / 6.0; // 30 degrees
-        double expectedSinValue = Math.sin(angle);
-
+    @ParameterizedTest(name = "Test sine of angle: {0}")
+    @CsvSource({
+            "0.5236, 0.5",
+            "0.7854, 0.7071",
+            "1.0472, 0.866"
+    })
+    @DisplayName("Test sine of different angles")
+    public void testSinAngle(double angle, double expectedSinValue, Calculator calculator) {
         double result = calculator.sin(angle);
         assertEquals(expectedSinValue, result, 0.0001);
     }

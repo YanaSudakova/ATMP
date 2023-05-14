@@ -1,42 +1,29 @@
 package com.epam.tat.module4;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(CalculatorParameterResolver.class)
 @DisplayName("Tests for mult long method of Calculator.jar")
 @Execution(ExecutionMode.CONCURRENT)
 public class CalculatorMultLongTest {
-    private Calculator calculator;
 
-    @BeforeEach
-    public void setUp() {
-        calculator = new Calculator();
-    }
-
-    @Test
-    @DisplayName("Test multiplication of positive numbers")
-    public void testMultPositiveNumbers() {
-        long result = calculator.mult(2, 3);
-        assertEquals(6, result);
-    }
-
-    @Test
-    @DisplayName("Test multiplication of negative numbers")
-    public void testMultNegativeNumbers() {
-        long result = calculator.mult(-2, -3);
-        assertEquals(6, result);
-    }
-
-    @Test
-    @DisplayName("Test multiplication of zero and positive number")
-    public void testMultZeroAndPositiveNumber() {
-        long result = calculator.mult(0, 5);
-        assertEquals(0, result);
+    @ParameterizedTest(name = "Test multiplication of {0} and {1}")
+    @CsvSource({
+            "2, 3, 6",
+            "-2, -3, 6",
+            "0, 5, 0"
+    })
+    @DisplayName("Test multiplication of different longs")
+    public void testMultNumbers(long num1, long num2, long expected, Calculator calculator) {
+        long result = calculator.mult(num1, num2);
+        assertEquals(expected, result);
     }
 }
 

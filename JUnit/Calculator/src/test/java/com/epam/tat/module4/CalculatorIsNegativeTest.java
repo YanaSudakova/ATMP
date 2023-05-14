@@ -1,43 +1,29 @@
 package com.epam.tat.module4;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertEquals;
 
+@ExtendWith(CalculatorParameterResolver.class)
 @DisplayName("Tests for isNegative method of Calculator.jar")
 @Execution(ExecutionMode.CONCURRENT)
 public class CalculatorIsNegativeTest {
-    private Calculator calculator;
 
-    @BeforeEach
-    public void setUp() {
-        calculator = new Calculator();
-    }
-
-    @Test
-    @DisplayName("Test isNegative with positive value")
-    public void testIsNegativeWithPositiveValue() {
-        long value = 10L;
-        assertFalse(calculator.isNegative(value));
-    }
-
-    @Test
-    @DisplayName("Test isNegative with zero value")
-    public void testIsNegativeWithZeroValue() {
-        long value = 0L;
-        assertFalse(calculator.isNegative(value));
-    }
-
-    @Test
-    @DisplayName("Test isNegative with negative value")
-    public void testIsNegativeWithNegativeValue() {
-        long value = -10L;
-        assertTrue(calculator.isNegative(value));
+    @ParameterizedTest(name = "Test isNegative with {0}")
+    @CsvSource({
+            "10, false",
+            "0, false",
+            "-10, true"
+    })
+    @DisplayName("Test isNegative with different values")
+    public void testIsNegative(long value, boolean expected, Calculator calculator) {
+        boolean result = calculator.isNegative(value);
+        assertEquals(expected, result);
     }
 }
 
