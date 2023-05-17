@@ -22,11 +22,6 @@ public class CalculatorTgTest {
             "45.0, 1.0"
     })
     public void testTgAngle(double angle, double expected, Calculator calculator) {
-        double sinValue = Math.sin(Math.toRadians(angle));
-
-        Calculator mockCalculator = mock(Calculator.class);
-        when(mockCalculator.sin(angle)).thenReturn(sinValue);
-
         double result = calculator.tg(angle);
         assertEquals(expected, result, 0.0001);
     }
