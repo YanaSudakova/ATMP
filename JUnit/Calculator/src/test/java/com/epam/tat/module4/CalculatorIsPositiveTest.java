@@ -1,5 +1,6 @@
 package com.epam.tat.module4;
 
+import helpers.CalculatorParameterResolver;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;

@@ -1,5 +1,6 @@
 package com.epam.tat.module4;
 
+import helpers.CalculatorParameterResolver;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;
@@ -21,8 +22,8 @@ public class CalculatorSubDoubleTest {
             "0.0, 5.8, -5.8"
     })
     @DisplayName("Test subtraction with different doubles")
-    public void testSubDoubleValues(double a, double b, double expected, Calculator calculator) {
-        double result = calculator.sub(a, b);
+    public void testSubDoubleValues(double minuend, double subtrahend, double expected, Calculator calculator) {
+        double result = calculator.sub(minuend, subtrahend);
         assertEquals(expected, result, 0.0001);
     }
 

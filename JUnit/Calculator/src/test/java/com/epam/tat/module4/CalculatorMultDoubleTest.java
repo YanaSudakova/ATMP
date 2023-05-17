@@ -1,5 +1,6 @@
 package com.epam.tat.module4;
 
+import helpers.CalculatorParameterResolver;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;
@@ -21,8 +22,8 @@ public class CalculatorMultDoubleTest {
             "0.0, 5.8, 0.0"
     })
     @DisplayName("Test multiplication of doubles")
-    public void testMultDoubles(double a, double b, double expected, Calculator calculator) {
-        double result = calculator.mult(a, b);
+    public void testMultDoubles(double factorA, double factorB, double expected, Calculator calculator) {
+        double result = calculator.mult(factorA, factorB);
         assertEquals(expected, result, 0.0001);
     }
 }

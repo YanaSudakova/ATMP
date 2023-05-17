@@ -1,5 +1,6 @@
 package com.epam.tat.module4;
 
+import helpers.CalculatorParameterResolver;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;
@@ -21,8 +22,8 @@ public class CalculatorSubLongTest {
             "0, 5, -5"
     })
     @DisplayName("Test subtraction with different longs")
-    public void testSubLongValues(long a, long b, long expected, Calculator calculator) {
-        long result = calculator.sub(a, b);
+    public void testSubLongValues(long minuend, long subtrahend, long expected, Calculator calculator) {
+        long result = calculator.sub(minuend, subtrahend);
         assertEquals(expected, result);
     }
 }

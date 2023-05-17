@@ -1,5 +1,6 @@
-package com.epam.tat.module4;
+package helpers;
 
+import com.epam.tat.module4.Calculator;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolver;

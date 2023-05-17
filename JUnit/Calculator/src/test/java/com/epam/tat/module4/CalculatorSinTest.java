@@ -1,5 +1,6 @@
 package com.epam.tat.module4;
 
+import helpers.CalculatorParameterResolver;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;
@@ -21,9 +22,9 @@ public class CalculatorSinTest {
             "1.0472, 0.866"
     })
     @DisplayName("Test sine of different angles")
-    public void testSinAngle(double angle, double expectedSinValue, Calculator calculator) {
+    public void testSinAngle(double angle, double expected, Calculator calculator) {
         double result = calculator.sin(angle);
-        assertEquals(expectedSinValue, result, 0.0001);
+        assertEquals(expected, result, 0.0001);
     }
 }
 

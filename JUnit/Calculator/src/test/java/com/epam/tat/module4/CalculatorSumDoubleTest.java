@@ -1,5 +1,6 @@
 package com.epam.tat.module4;
 
+import helpers.CalculatorParameterResolver;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;
@@ -23,8 +24,8 @@ public class CalculatorSumDoubleTest {
             "0.0, 0.0, 0.0"
     })
     @DisplayName("Test sum with different doubles")
-    public void testSumDoubleValues(double a, double b, double expected, Calculator calculator) {
-        double result = calculator.sum(a, b);
+    public void testSumDoubleValues(double addendA, double addendB, double expected, Calculator calculator) {
+        double result = calculator.sum(addendA, addendB);
         assertEquals(expected, result, 0.0001);
     }
 }

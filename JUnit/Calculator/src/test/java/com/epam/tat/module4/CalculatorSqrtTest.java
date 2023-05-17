@@ -1,5 +1,6 @@
 package com.epam.tat.module4;
 
+import helpers.CalculatorParameterResolver;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;
@@ -21,8 +22,8 @@ public class CalculatorSqrtTest {
             "4.0, 2.0"
     })
     @DisplayName("Test square root with different numbers")
-    public void testSqrtNumber(double input, double expected, Calculator calculator) {
-        double result = calculator.sqrt(input);
+    public void testSqrtNumber(double value, double expected, Calculator calculator) {
+        double result = calculator.sqrt(value);
         assertEquals(expected, result, 0.0001);
     }
 }

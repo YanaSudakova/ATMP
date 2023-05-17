@@ -1,5 +1,6 @@
 package com.epam.tat.module4;
 
+import helpers.CalculatorParameterResolver;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;
@@ -21,8 +22,8 @@ public class CalculatorCtgTest {
             "90, 0.0"
     })
     @DisplayName("Test cotangent of angle")
-    public void testCtgAngle(double angle, double expectedCtgValue, Calculator calculator) {
+    public void testCtgAngle(double angle, double expected, Calculator calculator) {
         double result = calculator.ctg(Math.toRadians(angle));
-        assertEquals(expectedCtgValue, result, 0.0001);
+        assertEquals(expected, result, 0.0001);
     }
 }

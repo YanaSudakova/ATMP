@@ -1,5 +1,6 @@
 package com.epam.tat.module4;
 
+import helpers.CalculatorParameterResolver;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;
@@ -21,8 +22,8 @@ public class CalculatorMultLongTest {
             "0, 5, 0"
     })
     @DisplayName("Test multiplication of different longs")
-    public void testMultNumbers(long num1, long num2, long expected, Calculator calculator) {
-        long result = calculator.mult(num1, num2);
+    public void testMultNumbers(long factorA, long factorB, long expected, Calculator calculator) {
+        long result = calculator.mult(factorA, factorB);
         assertEquals(expected, result);
     }
 }

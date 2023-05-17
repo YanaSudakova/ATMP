@@ -1,5 +1,6 @@
 package com.epam.tat.module4;
 
+import helpers.CalculatorParameterResolver;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;
@@ -20,8 +21,8 @@ public class CalculatorCosTest {
             "1.0471975511965979, 0.5"
     })
     @DisplayName("Test cosine of angle")
-    public void testCosAngle(double angle, double expectedCosValue, Calculator calculator) {
+    public void testCosAngle(double angle, double expected, Calculator calculator) {
         double result = calculator.cos(angle);
-        assertEquals(expectedCosValue, result, 0.0001);
+        assertEquals(expected, result, 0.0001);
     }
 }

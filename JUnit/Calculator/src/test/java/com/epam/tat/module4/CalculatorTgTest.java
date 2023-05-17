@@ -1,5 +1,6 @@
 package com.epam.tat.module4;
 
+import helpers.CalculatorParameterResolver;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;
@@ -20,15 +21,13 @@ public class CalculatorTgTest {
     @CsvSource({
             "45.0, 1.0"
     })
-    public void testTgAngle(double angle, double expectedTgValue, Calculator calculator) {
+    public void testTgAngle(double angle, double expected, Calculator calculator) {
         double sinValue = Math.sin(Math.toRadians(angle));
-        double cosValue = Math.cos(Math.toRadians(angle));
 
         Calculator mockCalculator = mock(Calculator.class);
         when(mockCalculator.sin(angle)).thenReturn(sinValue);
-        when(mockCalculator.cos(angle)).thenReturn(cosValue);
 
         double result = calculator.tg(angle);
-        assertEquals(expectedTgValue, result, 0.0001);
+        assertEquals(expected, result, 0.0001);
     }
 }
