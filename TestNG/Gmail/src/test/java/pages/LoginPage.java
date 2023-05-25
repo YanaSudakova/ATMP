@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasicPage {
 
-    private static final String URL = "https://accounts.google.com/InteractiveLogin";
+    private static final String URL = "http://mail.google.com";
 
     @FindBy(id = "identifierId")
     private WebElement emailField;
@@ -14,7 +14,7 @@ public class LoginPage extends BasicPage {
     @FindBy(xpath = "//span[text()='Next']")
     private WebElement nextButton;
 
-    @FindBy(id = "password")
+    @FindBy(css = "input[type='password']")
     private WebElement passwordField;
 
     public LoginPage(WebDriver driver) {
@@ -22,16 +22,19 @@ public class LoginPage extends BasicPage {
     }
 
     public LoginPage open() {
-        driver.get(URL);
+        navigateTo(URL);
         return this;
     }
 
-    public LoginPage login(String email, String password) {
+    public InboxPage login(String email, String password) {
+        waitForElementToBeVisible(emailField);
         emailField.sendKeys(email);
         nextButton.click();
+        waitForElementToBeVisible(passwordField);
         passwordField.sendKeys(password);
+        waitForElementToBeClickable(nextButton);
         nextButton.click();
-        return this;
+        return new InboxPage(driver);
     }
-
 }
+
