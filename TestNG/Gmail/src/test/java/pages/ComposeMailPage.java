@@ -6,10 +6,10 @@ import org.openqa.selenium.support.FindBy;
 
 public class ComposeMailPage extends BasicPage {
 
-    @FindBy(xpath = "//*[@peoplekit-id='BbVjBd']")
+    @FindBy(css = "[peoplekit-id='BbVjBd']")
     private WebElement toField;
 
-    @FindBy(xpath = "//span[contains(@email, '.com')]")
+    @FindBy(xpath = "//span[contains(text(), '@')]")
     private WebElement email;
 
     @FindBy(css = "input[name='subjectbox']")
@@ -18,7 +18,7 @@ public class ComposeMailPage extends BasicPage {
     @FindBy(css = "div[aria-label='Message Body']")
     private WebElement messageField;
 
-    @FindBy(xpath = "//img[@alt='Close']")
+    @FindBy(xpath = "//img[@aria-label='Save & close']")
     private WebElement closeButton;
 
     @FindBy(xpath = "//div[text()='Send']")
@@ -28,11 +28,15 @@ public class ComposeMailPage extends BasicPage {
         super(driver);
     }
 
-    public DraftsPage createDraftMail(String to, String subject, String message) {
+    public DraftsPage createMail(String to, String subject, String message) {
         waitForElementToBeVisible(toField);
         toField.sendKeys(to);
         subjectField.sendKeys(subject);
         messageField.sendKeys(message);
+        return new DraftsPage(driver);
+    }
+
+    public DraftsPage closeMail(){
         closeButton.click();
         return new DraftsPage(driver);
     }
@@ -42,7 +46,6 @@ public class ComposeMailPage extends BasicPage {
         sendButton.click();
         return new DraftsPage(driver);
     }
-
 
     public String getEmail() {
         waitForElementToBeVisible(email);

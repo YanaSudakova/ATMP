@@ -11,7 +11,7 @@ public class LoginPage extends BasicPage {
     @FindBy(id = "identifierId")
     private WebElement emailField;
 
-    @FindBy(xpath = "//span[text()='Next']")
+    @FindBy(css = "button[data-idom-class='nCP5yc AjY5Oe DuMIQc LQeN7 qIypjc TrZEUc lw1w4b']")
     private WebElement nextButton;
 
     @FindBy(css = "input[type='password']")

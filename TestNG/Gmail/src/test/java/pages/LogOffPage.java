@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class LogOffPage extends BasicPage {
 
-    @FindBy(css = "a.gb_d.gb_3a.gb_v")
+    @FindBy(css = "a[href*='accounts.google.com/SignOutOptions']")
     private WebElement accountIcon;
 
     @FindBy(css = "iframe[name='account']")
@@ -22,11 +22,12 @@ public class LogOffPage extends BasicPage {
         super(driver);
     }
 
-    public void logOff() {
+    public LoginPage logOff() {
         accountIcon.click();
         driver.switchTo().frame(iFrame);
         waitForElementToBeClickable(signOutButton);
         signOutButton.click();
+        return new LoginPage(driver);
     }
 
     public boolean isLoggedOff() {

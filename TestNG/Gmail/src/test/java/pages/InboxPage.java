@@ -26,5 +26,4 @@ public class InboxPage extends BasicPage {
         waitForElementToBeVisible(inbox);
         return inbox.isDisplayed();
     }
-
 }
