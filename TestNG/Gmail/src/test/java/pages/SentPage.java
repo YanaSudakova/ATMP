@@ -14,7 +14,7 @@ public class SentPage extends BasicPage {
     private List<WebElement> sentMails;
 
     @FindBy(xpath = "//span[@role='checkbox']")
-   private List<WebElement> selectAllSentCheckbox;
+   private List<WebElement> selectAllSentCheckboxes;
 
     @FindBy(xpath = "//div[@aria-label='Delete']")
     private WebElement deleteMailsButton;
@@ -34,8 +34,8 @@ public class SentPage extends BasicPage {
     }
 
     public void deleteSentMails() {
-        wait.until(d -> !selectAllSentCheckbox.isEmpty());
-        selectAllSentCheckbox.get(2).click();
+        wait.until(d -> !selectAllSentCheckboxes.isEmpty());
+        selectAllSentCheckboxes.get(2).click();
         waitForElementToBeClickable(deleteMailsButton);
         deleteMailsButton.click();
     }

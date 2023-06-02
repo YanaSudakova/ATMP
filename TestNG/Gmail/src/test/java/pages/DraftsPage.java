@@ -17,7 +17,7 @@ public class DraftsPage extends BasicPage {
     private List<WebElement> draftMails;
 
     @FindBy(xpath = "//span[@role='checkbox']")
-    private List<WebElement> selectAllDraftsCheckbox;
+    private List<WebElement> selectAllDraftsCheckboxes;
 
 
     @FindBy(css = "div.T-I.J-J5-Ji.aFh.T-I-ax7.mA")
@@ -43,7 +43,7 @@ public class DraftsPage extends BasicPage {
     }
 
     public void discardDrafts() {
-        selectAllDraftsCheckbox.get(1).click();
+        selectAllDraftsCheckboxes.get(1).click();
         waitForElementToBeClickable(discardDraftsButton);
         discardDraftsButton.click();
     }

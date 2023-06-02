@@ -27,7 +27,7 @@ public class MailTest {
     private SentPage sentPage;
     private LogOffPage logOffPage;
 
-    @DataProvider(name = "validEmails")
+    @DataProvider(name = "validEmails", parallel = true)
     public Object[][] validEmailsProvider() {
         return new Object[][]{
                 {new String[]{"damok57280@introace.com", "pefara6648@goflipa.com", "pogec27763@goflipa.com",
@@ -76,7 +76,7 @@ public class MailTest {
         Assert.assertTrue(logOffPage.isLoggedOff(), "User is not logged off.");
     }
 
-    @Test(dataProvider = "validEmails", priority = 1, description = "Create draft message and verify that it is saved")
+    @Test(dataProvider = "validEmails", description = "Create draft message and verify that it is saved")
     public void createAndVerifyDraftMessage(String[] validEmails) {
         String email = getRandomEmail(validEmails);
         SoftAssert softAssert = new SoftAssert();
@@ -103,7 +103,7 @@ public class MailTest {
         softAssert.assertAll();
     }
 
-    @Test(dataProvider = "validEmails", priority = 2, description = "Create and send mail")
+    @Test(dataProvider = "validEmails", description = "Create and send mail")
     public void createAndSendMail(String[] validEmails) {
         String email = getRandomEmail(validEmails);
 
