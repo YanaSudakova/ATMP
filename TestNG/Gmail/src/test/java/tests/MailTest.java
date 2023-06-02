@@ -24,7 +24,7 @@ public class MailTest {
     private InboxPage inboxPage;
     private ComposeMailPage composeMailPage;
     private DraftsPage draftsPage;
-    private SentMailPage sentMailPage;
+    private SentPage sentPage;
     private LogOffPage logOffPage;
 
     @DataProvider(name = "validEmails")
@@ -38,10 +38,12 @@ public class MailTest {
     @BeforeClass(alwaysRun = true)
     public void browserSetup() {
         driver = createChromeDriver();
+        login();
     }
 
     @AfterClass(alwaysRun = true)
     public void browserTearDown() {
+        logOff();
         driver.quit();
     }
 
@@ -51,7 +53,7 @@ public class MailTest {
         inboxPage = new InboxPage(driver);
         composeMailPage = new ComposeMailPage(driver);
         draftsPage = new DraftsPage(driver);
-        sentMailPage = new SentMailPage(driver);
+        sentPage = new SentPage(driver);
         logOffPage = new LogOffPage(driver);
     }
 
@@ -61,27 +63,37 @@ public class MailTest {
         return new ChromeDriver(options);
     }
 
-    @Test(priority = 1, description = "Login to the mail box.")
-    public void login() {
+    private void login() {
+        LoginPage loginPage = new LoginPage(driver);
         loginPage.open();
-        InboxPage inboxPage = loginPage.login(EMAIL, PASSWORD);
+        inboxPage = loginPage.login(EMAIL, PASSWORD);
         Assert.assertTrue(inboxPage.isInboxDisplayed(), "Login was not successful!");
     }
 
-    @Test(dataProvider = "validEmails", priority = 2,
-            description = "Create draft message and verify that it is saved")
+    private void logOff() {
+        logOffPage = new LogOffPage(driver);
+        logOffPage.logOff();
+        Assert.assertTrue(logOffPage.isLoggedOff(), "User is not logged off.");
+    }
+
+    @Test(dataProvider = "validEmails", priority = 1, description = "Create draft message and verify that it is saved")
     public void createAndVerifyDraftMessage(String[] validEmails) {
         String email = getRandomEmail(validEmails);
         SoftAssert softAssert = new SoftAssert();
 
+        draftsPage.open();
+        if ((draftsPage.isFirstDraftPresent())){
+            draftsPage.discardDrafts();
+        }
+
         inboxPage.openNewMail();
         composeMailPage.createMail(email, SUBJECT, MESSAGE);
         composeMailPage.closeMail();
-        draftsPage.open();
-        softAssert.assertTrue(draftsPage.isDraftPresent(), "Draft message not found in 'Drafts' folder.");
 
-        draftsPage.openDraft();
-        String actualEmail = composeMailPage.getEmail();
+        softAssert.assertTrue(draftsPage.isFirstDraftPresent(), "Draft message not found in 'Drafts' folder.");
+
+        draftsPage.openFirstDraft();
+        String actualEmail = composeMailPage.getEmailValue();
         softAssert.assertEquals(actualEmail, email, "Incorrect addressee in draft message.");
         String subject = composeMailPage.getSubject();
         softAssert.assertEquals(subject, SUBJECT, "Incorrect subject in draft message.");
@@ -91,21 +103,20 @@ public class MailTest {
         softAssert.assertAll();
     }
 
-    @Test(dataProvider = "validEmails", priority = 3, description = "Create and send mail")
-    public void CreateAndSendMail(String[] validEmails) {
+    @Test(dataProvider = "validEmails", priority = 2, description = "Create and send mail")
+    public void createAndSendMail(String[] validEmails) {
         String email = getRandomEmail(validEmails);
+
+        sentPage.open();
+        if ((sentPage.isFirstSentMailPresent())){
+            sentPage.deleteSentMails();
+        }
 
         inboxPage.openNewMail();
         composeMailPage.createMail(email, SUBJECT, MESSAGE);
         composeMailPage.sendMail();
-        sentMailPage.open();
-        Assert.assertTrue(sentMailPage.isSentMailPresent(), "Sent mail not found.");
-    }
-
-    @Test(priority = 4, description = "Log off")
-    public void logOff() {
-        logOffPage.logOff();
-        Assert.assertTrue(logOffPage.isLoggedOff(), "User is not logged off.");
+        sentPage.open();
+        Assert.assertTrue(sentPage.isFirstSentMailPresent(), "Sent mail not found.");
     }
 
     private static String getTimeStamp() {

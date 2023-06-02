@@ -10,7 +10,7 @@ public class ComposeMailPage extends BasicPage {
     private WebElement toField;
 
     @FindBy(xpath = "//span[contains(text(), '@')]")
-    private WebElement email;
+    private WebElement emailValue;
 
     @FindBy(css = "input[name='subjectbox']")
     private WebElement subjectField;
@@ -36,7 +36,7 @@ public class ComposeMailPage extends BasicPage {
         return new DraftsPage(driver);
     }
 
-    public DraftsPage closeMail(){
+    public DraftsPage closeMail() {
         closeButton.click();
         return new DraftsPage(driver);
     }
@@ -47,9 +47,9 @@ public class ComposeMailPage extends BasicPage {
         return new DraftsPage(driver);
     }
 
-    public String getEmail() {
-        waitForElementToBeVisible(email);
-        return email.getText();
+    public String getEmailValue() {
+        waitForElementToBeVisible(emailValue);
+        return emailValue.getText();
     }
 
     public String getSubject() {

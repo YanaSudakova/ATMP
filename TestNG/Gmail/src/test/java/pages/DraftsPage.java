@@ -9,16 +9,19 @@ import java.util.List;
 public class DraftsPage extends BasicPage {
 
     private static final String URL = "https://mail.google.com/mail/u/0/#drafts";
-    public static final String DRAFTS_HEADER_MESSAGE = "You don't have any saved drafts.\n" +
-            "Saving a draft allows you to keep a message you aren't ready to send yet.";
+
     @FindBy(css = "span.Dj")
     private WebElement draftsCounter;
 
     @FindBy(xpath = "//div[@class='Cp']/div/table/tbody/tr")
-    private List<WebElement> draftMessages;
+    private List<WebElement> draftMails;
 
-    @FindBy(css = "td.TC")
-    private WebElement draftsHeader;
+    @FindBy(xpath = "//span[@role='checkbox']")
+    private List<WebElement> selectAllDraftsCheckbox;
+
+
+    @FindBy(css = "div.T-I.J-J5-Ji.aFh.T-I-ax7.mA")
+    private WebElement discardDraftsButton;
 
     public DraftsPage(WebDriver driver) {
         super(driver);
@@ -28,19 +31,20 @@ public class DraftsPage extends BasicPage {
         navigateTo(URL);
     }
 
-    public void openDraft() {
-        waitForElementToBeVisible(draftMessages.get(0));
-        draftMessages.get(0).click();
+    public void openFirstDraft() {
+        waitForElementToBeVisible(draftMails.get(0));
+        draftMails.get(0).click();
     }
 
-    public boolean isDraftPresent() {
-        wait.until(d -> !draftMessages.isEmpty());
-        waitForElementToBeClickable(draftMessages.get(0));
-        return draftMessages.get(0).isDisplayed();
+    public boolean isFirstDraftPresent() {
+        wait.until(d -> !draftMails.isEmpty());
+        waitForElementToBeClickable(draftMails.get(0));
+        return draftMails.get(0).isDisplayed();
     }
 
-    public String getDraftsHeaderText() {
-        waitForElementToBeVisible(draftsHeader);
-        return draftsHeader.getText();
+    public void discardDrafts() {
+        selectAllDraftsCheckbox.get(1).click();
+        waitForElementToBeClickable(discardDraftsButton);
+        discardDraftsButton.click();
     }
 }
