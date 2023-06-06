@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,7 +15,7 @@ public class SentPage extends BasicPage {
     private List<WebElement> sentMails;
 
     @FindBy(xpath = "//span[@role='checkbox']")
-   private List<WebElement> selectAllSentCheckboxes;
+    private List<WebElement> selectAllSentCheckboxes;
 
     @FindBy(xpath = "//div[@aria-label='Delete']")
     private WebElement deleteMailsButton;
@@ -28,14 +29,18 @@ public class SentPage extends BasicPage {
     }
 
     public boolean isFirstSentMailPresent() {
-        wait.until(d -> !sentMails.isEmpty());
-        waitForElementToBeClickable(sentMails.get(0));
-        return sentMails.get(0).isDisplayed();
+        try {
+            wait.until(d -> !sentMails.isEmpty());
+            waitForElementToBeClickable(sentMails.get(0));
+            return sentMails.get(0).isDisplayed();
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     public void deleteSentMails() {
         wait.until(d -> !selectAllSentCheckboxes.isEmpty());
-        selectAllSentCheckboxes.get(2).click();
+        selectAllSentCheckboxes.get(1).click();
         waitForElementToBeClickable(deleteMailsButton);
         deleteMailsButton.click();
     }
