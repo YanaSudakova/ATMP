@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -37,9 +38,13 @@ public class DraftsPage extends BasicPage {
     }
 
     public boolean isFirstDraftPresent() {
-        wait.until(d -> !draftMails.isEmpty());
-        waitForElementToBeClickable(draftMails.get(0));
-        return draftMails.get(0).isDisplayed();
+        try {
+            wait.until(d -> !draftMails.isEmpty());
+            waitForElementToBeClickable(draftMails.get(0));
+            return draftMails.get(0).isDisplayed();
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     public void discardDrafts() {

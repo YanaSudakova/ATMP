@@ -27,7 +27,7 @@ public class MailTest {
     private SentPage sentPage;
     private LogOffPage logOffPage;
 
-    @DataProvider(name = "validEmails", parallel = true)
+    @DataProvider(name = "validEmails")
     public Object[][] validEmailsProvider() {
         return new Object[][]{
                 {new String[]{"damok57280@introace.com", "pefara6648@goflipa.com", "pogec27763@goflipa.com",
@@ -35,26 +35,22 @@ public class MailTest {
         };
     }
 
-    @BeforeClass(alwaysRun = true)
-    public void browserSetup() {
-        driver = createChromeDriver();
-        login();
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void browserTearDown() {
-        logOff();
-        driver.quit();
-    }
-
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
+        driver = createChromeDriver();
+        login();
         loginPage = new LoginPage(driver);
         inboxPage = new InboxPage(driver);
         composeMailPage = new ComposeMailPage(driver);
         draftsPage = new DraftsPage(driver);
         sentPage = new SentPage(driver);
         logOffPage = new LogOffPage(driver);
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void browserTearDown() {
+        logOff();
+        driver.quit();
     }
 
     private static WebDriver createChromeDriver() {
@@ -72,6 +68,7 @@ public class MailTest {
 
     private void logOff() {
         logOffPage = new LogOffPage(driver);
+        logOffPage.waitForLogoutAlert();
         logOffPage.logOff();
         Assert.assertTrue(logOffPage.isLoggedOff(), "User is not logged off.");
     }
@@ -114,8 +111,8 @@ public class MailTest {
 
         inboxPage.openNewMail();
         composeMailPage.createMail(email, SUBJECT, MESSAGE);
+
         composeMailPage.sendMail();
-        sentPage.open();
         Assert.assertTrue(sentPage.isFirstSentMailPresent(), "Sent mail not found.");
     }
 

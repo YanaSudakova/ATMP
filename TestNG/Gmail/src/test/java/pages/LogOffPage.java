@@ -1,8 +1,12 @@
 package pages;
 
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 
 public class LogOffPage extends BasicPage {
 
@@ -33,5 +37,13 @@ public class LogOffPage extends BasicPage {
     public boolean isLoggedOff() {
         waitForElementToBeVisible(chooseAccountElement);
         return chooseAccountElement.isDisplayed();
+    }
+
+    public void waitForLogoutAlert() {
+        try {
+            Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+            alert.accept();
+        } catch (TimeoutException e) {
+        }
     }
 }
