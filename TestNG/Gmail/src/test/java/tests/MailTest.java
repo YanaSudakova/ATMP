@@ -65,7 +65,6 @@ public class MailTest {
         capability.setPlatform(Platform.ANY);
         capability.setBrowserName("chrome");
         driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"),capability);
-        //driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         initializePages();
         login();

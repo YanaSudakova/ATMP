@@ -49,7 +49,7 @@ public class InboxPage extends BasicPage {
         actions.perform();
     }
 
-    public void changeConversationView() {
+    public void scrollIntoElement() {
         waitForElementToBeClickable(settingsOption);
         settingsOption.click();
         waitForElementToBeVisible(conversationViewOption);
