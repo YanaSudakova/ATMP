@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
@@ -20,9 +21,14 @@ public class DraftsPage extends BasicPage {
     @FindBy(xpath = "//span[@role='checkbox']")
     private List<WebElement> selectAllDraftsCheckboxes;
 
-
     @FindBy(css = "div.T-I.J-J5-Ji.aFh.T-I-ax7.mA")
     private WebElement discardDraftsButton;
+
+    @FindBy(xpath = "//div[@class='J-N-JX aDE aDD']")
+    private WebElement archiveOption;
+
+    @FindBy(css = "span.bAq")
+    private WebElement archivedMessage;
 
     public DraftsPage(WebDriver driver) {
         super(driver);
@@ -51,5 +57,16 @@ public class DraftsPage extends BasicPage {
         selectAllDraftsCheckboxes.get(1).click();
         waitForElementToBeClickable(discardDraftsButton);
         discardDraftsButton.click();
+    }
+
+    public void archiveFirstDraft() {
+        Actions actions = new Actions(driver);
+        waitForElementToBeVisible(draftMails.get(0));
+        actions.contextClick(draftMails.get(0)).perform();
+        archiveOption.click();
+    }
+
+    public String getArchiveMessageText() {
+        return archivedMessage.getText();
     }
 }
