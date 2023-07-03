@@ -1,5 +1,7 @@
 package com.epam.atmp.page;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 public class GoogleCloudHomePage extends AbstractPage {
 
     private static final String URL = "https://cloud.google.com/";
-
+    private static final Logger LOGGER = LogManager.getLogger(GoogleCloudHomePage.class);
     @FindBy(xpath = "//input[@class='devsite-search-field devsite-search-query']")
     private WebElement searchInput;
 
@@ -16,17 +18,17 @@ public class GoogleCloudHomePage extends AbstractPage {
     }
 
     public void open() {
-        logInfo("Opening Google Cloud home page: " + URL);
+        LOGGER.info("Opening Google Cloud home page: " + URL);
         open(URL);
     }
 
     public GoogleCloudSearchResultsPage searchForTerm(String term) {
-        logAction("Waiting for search input to be clickable");
+        LOGGER.info("Waiting for search input to be clickable");
         waitForElementToBeClickable(searchInput);
-        logAction("Performing search with term: " + term);
+        LOGGER.info("Performing search with term: " + term);
         searchInput.sendKeys(term);
         searchInput.submit();
-        logInfo("Returning Google Cloud search results page");
+        LOGGER.info("Returning Google Cloud search results page");
         return new GoogleCloudSearchResultsPage(driver);
     }
 }

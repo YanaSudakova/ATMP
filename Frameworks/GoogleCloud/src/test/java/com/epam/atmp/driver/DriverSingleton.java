@@ -18,18 +18,24 @@ public class DriverSingleton {
     public static WebDriver getDriver() {
         if (driver == null) {
             String browser = System.getProperty("browser", DEFAULT_BROWSER).toLowerCase();
-            if (browser.equals("firefox")) {
-                WebDriverManager.firefoxdriver().setup();
-                FirefoxOptions firefoxOptions = new FirefoxOptions();
-                setCommonOptions(firefoxOptions);
-                driver = new FirefoxDriver(firefoxOptions);
-            } else {
-                WebDriverManager.chromedriver().setup();
-                ChromeOptions chromeOptions = new ChromeOptions();
-                setCommonOptions(chromeOptions);
-                driver = new ChromeDriver(chromeOptions);
-            }
+            driver = createDriver(browser);
             driver.manage().window().maximize();
+        }
+        return driver;
+    }
+
+    private static WebDriver createDriver(String browser) {
+        WebDriver driver;
+        if (browser.equals("firefox")) {
+            WebDriverManager.firefoxdriver().setup();
+            FirefoxOptions firefoxOptions = new FirefoxOptions();
+            setCommonOptions(firefoxOptions);
+            driver = new FirefoxDriver(firefoxOptions);
+        } else {
+            WebDriverManager.chromedriver().setup();
+            ChromeOptions chromeOptions = new ChromeOptions();
+            setCommonOptions(chromeOptions);
+            driver = new ChromeDriver(chromeOptions);
         }
         return driver;
     }
