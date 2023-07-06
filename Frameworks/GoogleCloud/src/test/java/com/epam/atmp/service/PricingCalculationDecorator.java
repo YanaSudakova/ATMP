@@ -6,6 +6,7 @@ import com.epam.atmp.model.PricingCalculation;
 import org.openqa.selenium.WebDriver;
 
 public class PricingCalculationDecorator {
+
     private final PricingCalculation pricingCalculation;
 
     public PricingCalculationDecorator(WebDriver driver, boolean isGPU) {

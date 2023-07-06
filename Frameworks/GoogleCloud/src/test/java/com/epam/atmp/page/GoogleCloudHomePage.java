@@ -10,6 +10,7 @@ public class GoogleCloudHomePage extends AbstractPage {
 
     private static final String URL = "https://cloud.google.com/";
     private static final Logger LOGGER = LogManager.getLogger(GoogleCloudHomePage.class);
+
     @FindBy(xpath = "//input[@class='devsite-search-field devsite-search-query']")
     private WebElement searchInput;
 

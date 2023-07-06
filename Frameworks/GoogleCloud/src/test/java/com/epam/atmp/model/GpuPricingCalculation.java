@@ -8,35 +8,49 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class GpuPricingCalculation extends DefaultPricingCalculation implements PricingCalculation {
+
     private static final String TESTDATA_GPU_TYPE = "testdata.gpuType";
     private static final String TESTDATA_NUMBER_OF_GPUS = "testdata.numberOfGpus";
     private static final String TESTDATA_LOCAL_SSD = "testdata.localSSD";
     private static final String TESTDATA_COMMITTED_USAGE = "testdata.committedUsage";
     private static final Logger LOGGER = LogManager.getLogger(GpuPricingCalculation.class);
+
     @FindBy(css = "md-checkbox[ng-model='listingCtrl.computeServer.addGPUs']")
     protected WebElement addGPUsCheckbox;
+
     @FindBy(css = "md-select[ng-model='listingCtrl.computeServer.gpuType']")
     protected WebElement gpuTypeDropdown;
-    @FindBy(xpath = "//md-option[@value='NVIDIA_TESLA_V100']")
-    protected WebElement nvidiaTeslaV100Option;
+
+    @FindBy(xpath = "//md-option[@value='NVIDIA_TESLA_P100']")
+    protected WebElement nvidiaTeslaP100Option;
+
     @FindBy(xpath = "//md-option[@value='NVIDIA_TESLA_P4']")
     protected WebElement nvidiaTeslaP4Option;
+
     @FindBy(css = "md-select[ng-model='listingCtrl.computeServer.gpuCount']")
     protected WebElement numberOfGpusDropdown;
+
     @FindBy(xpath = "//md-option[.//div[normalize-space(text())='1']]")
     protected WebElement oneOption;
+
     @FindBy(xpath = "//md-option[.//div[normalize-space(text())='2']]")
     protected WebElement twoOption;
+
     @FindBy(css = "md-select[ng-model='listingCtrl.computeServer.ssd']")
     protected WebElement localSSDDropdown;
+
     @FindBy(xpath = "//md-option[.//div[normalize-space(text())='2x375 GB']]")
     protected WebElement local2x375Option;
+
     @FindBy(xpath = "//md-option[.//div[normalize-space(text())='3x375 GB']]")
     protected WebElement local3x375Option;
+
     @FindBy(css = "md-select[ng-model='listingCtrl.computeServer.cud']")
     protected WebElement committedUsageDropdown;
+
     @FindBy(css = "md-option[id='select_option_134']")
     protected WebElement oneYearOption;
+
     @FindBy(css = "md-option[id='select_option_135']")
     protected WebElement threeYearsOption;
 
@@ -58,9 +72,9 @@ public class GpuPricingCalculation extends DefaultPricingCalculation implements 
         addGPUsCheckbox.click();
         waitForElementToBeVisible(gpuTypeDropdown);
         gpuTypeDropdown.click();
-        waitForElementToBeClickable(nvidiaTeslaV100Option);
-        if (option.equals("nvidia tesla V100")) {
-            nvidiaTeslaV100Option.click();
+        waitForElementToBeClickable(nvidiaTeslaP100Option);
+        if (option.equals("nvidia tesla P100")) {
+            nvidiaTeslaP100Option.click();
         } else if (option.equals("nvidia tesla P4")) {
             nvidiaTeslaP4Option.click();
         }

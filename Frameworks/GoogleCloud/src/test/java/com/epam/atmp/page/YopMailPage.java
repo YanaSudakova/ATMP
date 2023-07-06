@@ -13,18 +13,25 @@ public class YopMailPage extends AbstractPage {
 
     private static final String URL = "https://yopmail.com/";
     private static final Logger LOGGER = LogManager.getLogger(YopMailPage.class);
+
     @FindBy(xpath = "//a[@title='Generate a random email address']")
     private WebElement randomEmailButton;
+
     @FindBy(xpath = "//script[contains(text(), 'login=')]")
     private WebElement emailValue;
+
     @FindBy(xpath = "//span[contains(text(), 'Check Inbox')]")
     private WebElement checkInboxButton;
+
     @FindBy(xpath = "//div[contains(text(), 'Google Cloud Price Estimate')]")
     private WebElement priceEstimateEmail;
+
     @FindBy(xpath = "//iframe")
     private WebElement iFrame;
+
     @FindBy(xpath = "//iframe[@name='ifmail']")
     private WebElement mailIframe;
+
     @FindBy(xpath = "//h2[contains(., 'Estimated Monthly Cost:')]")
     private WebElement estimatedMonthlyCostValue;
 

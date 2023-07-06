@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 public class GoogleCloudSearchResultsPage extends AbstractPage {
 
     private static final Logger LOGGER = LogManager.getLogger(GoogleCloudSearchResultsPage.class);
+
     @FindBy(linkText = "Google Cloud Pricing Calculator")
     private WebElement calculatorLink;
 

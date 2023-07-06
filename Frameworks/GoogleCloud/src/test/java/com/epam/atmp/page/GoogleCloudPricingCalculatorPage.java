@@ -12,20 +12,28 @@ import java.util.List;
 public class GoogleCloudPricingCalculatorPage extends AbstractPage {
 
     private static final Logger LOGGER = LogManager.getLogger(GoogleCloudPricingCalculatorPage.class);
+
     @FindBy(xpath = "//iframe")
     private WebElement mainFrame;
+
     @FindBy(xpath = "//*[@id='myFrame']")
     private WebElement myFrame;
+
     @FindBy(xpath = "//md-tab-item/div[@title='Compute Engine']")
     private WebElement computeEngineTab;
+
     @FindBy(xpath = "//button[contains(text(), 'Add to Estimate')]")
     private List<WebElement> addToEstimateButtons;
+
     @FindBy(xpath = "//button[@title='Email Estimate']")
     private WebElement emailEstimateButton;
+
     @FindBy(xpath = "//input[@type='email']")
     private WebElement emailInput;
+
     @FindBy(xpath = "//button[contains(text(), 'Send Email')]")
     private WebElement sendEmailButton;
+
     @FindBy(css = "h2.md-flex.ng-binding.ng-scope")
     private WebElement estimatedCostValue;
 
