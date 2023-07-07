@@ -1,7 +1,5 @@
 package com.epam.atmp.page;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -16,7 +14,6 @@ import java.util.Set;
 
 public class AbstractPage {
 
-    private static final Logger LOGGER = LogManager.getLogger(AbstractPage.class);
     protected WebDriver driver;
     protected WebDriverWait wait;
 
@@ -79,21 +76,5 @@ public class AbstractPage {
 
     protected void refreshPage() {
         driver.navigate().refresh();
-    }
-
-    protected void logDebug(String message) {
-        LOGGER.debug(message);
-    }
-
-    protected void logInfo(String message) {
-        LOGGER.info(message);
-    }
-
-    protected void logAction(String message) {
-        LOGGER.info("[ACTION] " + message);
-    }
-
-    protected void logError(String message) {
-        LOGGER.error("[ERROR] " + message);
     }
 }
