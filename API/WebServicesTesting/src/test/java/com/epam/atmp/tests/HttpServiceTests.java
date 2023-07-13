@@ -10,18 +10,18 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 public class HttpServiceTests {
 
-    private static final String ENDPOINT = "https://jsonplaceholder.typicode.com/users";
+    private static final String BASE_URL = "https://jsonplaceholder.typicode.com/";
 
     @BeforeAll
     public static void setup() {
-        RestAssured.baseURI = ENDPOINT;
+        RestAssured.baseURI = BASE_URL;
     }
 
     @Test
     public void testStatusCode() {
         given()
                 .when()
-                .get()
+                .get("users")
                 .then()
                 .assertThat()
                 .statusCode(200);
@@ -31,7 +31,7 @@ public class HttpServiceTests {
     public void testResponseHeader(){
         given()
                 .when()
-                .get()
+                .get("users")
                 .then()
                 .assertThat()
                 .header("content-type", equalTo("application/json; charset=utf-8"));
@@ -41,7 +41,7 @@ public class HttpServiceTests {
     public void testResponseBody(){
         given()
                 .when()
-                .get()
+                .get("users")
                 .then()
                 .assertThat()
                 .body(".", hasSize(10));
